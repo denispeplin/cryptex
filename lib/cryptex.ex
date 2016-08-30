@@ -1,20 +1,38 @@
 defmodule Cryptex do
+  @moduledoc """
+  Fake encrypts data using stored key
+  """
   use Application
+  alias Cryptex.Key
 
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    # Define workers and child supervisors to be supervised
     children = [
-      # Starts a worker by calling: Cryptex.Worker.start_link(arg1, arg2, arg3)
-      # worker(Cryptex.Worker, [arg1, arg2, arg3]),
+      worker(Cryptex.Encryptor, [key]),
     ]
 
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Cryptex.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp key do
+    case Key.read do
+      {:ok, key} ->
+        key
+      {:error, message} ->
+        raise message
+    end
+  end
+
+  @doc """
+  Calls fake encryption function
+
+  ##Example
+      iex> Cryptex.encrypt "data"
+      "data"
+  """
+  def encrypt(data) do
+    GenServer.call Cryptex.Encryptor, data
   end
 end

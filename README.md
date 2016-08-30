@@ -1,6 +1,6 @@
 # Cryptex
 
-**TODO: Add description**
+Fake encryption of user supplied data (not) using stored public key.
 
 ## Installation
 
@@ -22,3 +22,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
     end
     ```
 
+## Usage
+
+1. Put a key in `keys` folder. `Cryptext` expects a key to be named `rsa_key.pub`.
+2. Call `Cryptex.encrypt(your_data)`. After two seconds of work imitation, `Cryptex` will return your data untouched.
