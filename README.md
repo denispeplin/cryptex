@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/denispeplin/cryptex.svg?branch=master)](https://travis-ci.org/denispeplin/cryptex)
+
 # Cryptex
 
 Fake encryption of user supplied data (not) using stored public key.
